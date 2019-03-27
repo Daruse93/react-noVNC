@@ -7,11 +7,15 @@ Within a React component, you can render this like:
 
 ``` javascript
 return (
-  <NoVNC connectionName={this.props.connectionName}
+  <NoVNC 
+    connectionName={this.props.connectionName}
+    actionsBar={(props) => <Actions onDisconnect={props.onDisconnect}/>}
+    password={this.props.device.remote.password}
+    onBeforeConnect={this.onBeforeConnect}
+    viewOnly={this.state.viewOnly}
     onDisconnected={this.onDisconnected}
-    isSecure={true}
-    actionsBar={(props) => <SomeActionsList onDisconnect={props.onDisconnect} />}
-    passwordPrompt={(props) => <SomePasswordComponent onSubmit={props.onSubmit} />}/>
+    isFullScreen={this.state.isFull}
+    callKey={this.state.callKey}
 )
 ```
 
@@ -29,5 +33,14 @@ Props are defined as follows:
   * Password to be sent when connecting to the VNC server.
 * `passwordPrompt`
   * Render prop displayed if a password was not supplied but the VNC server requests a password.
-
+* `onBeforeConnect`
+  * A method, which started before connect to VNC
+* `viewOnly`
+  * view only mode, on or off (bool)
+* `callKey`
+  * send key for call in VNC (string), supported by: 'windows','ctrl','alt','tab','esc','ctrlaltdel'
+* `isFullScreen`
+  * is full screen ? (bool), add class 'fullscreen' on 'novnc' component (possible to use with [react-fullscreen component](https://github.com/snakesilk/react-fullscreen))
+  
+  
 For a demo, see [https://github.com/larryprice/novnc-demos](https://github.com/larryprice/novnc-demos).
